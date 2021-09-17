@@ -1,10 +1,12 @@
 package com.mhsnodgrass.rectangleparser;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.cli.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class CommandRunner implements CommandLineRunner {
     public void run(String... args) {
         // Create options object to insert objects
@@ -37,7 +39,7 @@ public class CommandRunner implements CommandLineRunner {
 
             // -p
             if (line.hasOption("p")) {
-                System.out.println("Parsed -p correctly!");
+                log.info("Parsed -p correctly!");
             // -h
             } else if (line.hasOption("h")) {
                 formatter.printHelp("java -jar rectangleparser-0.0.1-SNAPSHOT.jar", options);
@@ -46,7 +48,7 @@ public class CommandRunner implements CommandLineRunner {
                 formatter.printHelp("java -jar rectangleparser-0.0.1-SNAPSHOT.jar", options);
             }
         } catch (ParseException e) {
-            e.printStackTrace();
+            log.error("Error parsing arguments/options", e);
         }
     }
 }
