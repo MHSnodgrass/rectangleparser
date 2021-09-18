@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class CommandRunner implements CommandLineRunner {
     @Autowired
-    XmlParser xmlParser = new XmlParser();
+    private XmlParser xmlParser = new XmlParser();
 
     public void run(String... args) {
         // Create options object to insert objects
