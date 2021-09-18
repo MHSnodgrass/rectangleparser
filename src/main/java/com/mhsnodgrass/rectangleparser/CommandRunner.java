@@ -6,12 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+/** CommandRunner takes in the arguments from the command line to run the rest of the program, implements CommandLineRunner to always run
+ * @author Matthew Snodgrass
+ */
 @Component
 @Slf4j
 public class CommandRunner implements CommandLineRunner {
     @Autowired
     private RectangleParser rectangleParser;
 
+    /**
+     * <p>Takes in the arguments from the command line and checks for options (-p, -h, etc)</p>
+     * <p>-p parses the XML file provided as an argument (or uses a default name from application.properties).</p>
+     * <p>-p Calls {@link RectangleParser} to process the file</p>
+     * <p>-h Prints the help output</p>
+     * <p>No arguments prints the help output</p>
+     * @param args Arguments after an option declaration on the command line, currently looking for the filename of the XML file to be processed
+     */
     public void run(String... args) {
         // Create options object to insert objects
         Options options = new Options();
