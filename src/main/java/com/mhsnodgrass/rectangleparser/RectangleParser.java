@@ -7,27 +7,13 @@ import org.apache.commons.cli.CommandLine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 @Component
 public class RectangleParser {
-    private final static String HEIGHT = "height";
-    private final static String WIDTH = "width";
-    private final static String X = "x";
-    private final static String Y = "y";
-
     @Autowired
     private RectangleUtils rectangleUtils;
 
