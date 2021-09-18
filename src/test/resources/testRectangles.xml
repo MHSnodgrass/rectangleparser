@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rectangles>
 	<rectangle>
+		<id>1</id>
 		<height>5</height>
 		<width>10</width>
 		<x>0</x>
 		<y>0</y>
 	</rectangle>
 	<rectangle>
+		<id>2</id>
 		<height>10</height>
 		<width>20</width>
 		<x>10</x>
@@ -19,36 +21,49 @@
 		<y>10</y>
 	</rectangle>
 	<rectangle>
+		<id>3</id>
 		<height>5</height>
 		<width>10</width>
 		<x>0</x>
 		<y>0</y>
 	</rectangle>
 	<rectangle>
+		<id>4</id>
 		<height>10</height>
 		<width>20</width>
 		<x>5</x>
 		<y>5</y>
 	</rectangle>
 	<rectangle>
+		<id>5</id>
 		<height>5</height>
 		<width>10</width>
 		<x>0</x>
 		<y>0</y>
 	</rectangle>
 	<rectangle>
+		<id>6</id>
 		<height>10</height>
 		<width>20</width>
 		<x>20</x>
 		<y>20</y>
 	</rectangle>
 	<rectangle>
+		<id>7</id>
 		<height>5</height>
 		<width>10</width>
 		<x>0</x>
 		<y>0</y>
 	</rectangle>
 	<rectangle>
+		<id>8</id>
+		<height>5</height>
+		<width>10</width>
+		<x>0</x>
+		<y>0</y>
+	</rectangle>
+	<rectangle>
+		<id>8</id>
 		<height>5</height>
 		<width>10</width>
 		<x>0</x>

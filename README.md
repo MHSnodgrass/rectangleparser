@@ -9,7 +9,7 @@
     - Maven-javadoc-plugin for easy javadoc creation
 
 Currently, the program can:
-- Parse an XML file to get rectangle data (height, width, x, y)
+- Parse an XML file to get rectangle data (id, height, width, x, y)
 - Create rectangle objects based off of that data
 - Print out the coordinates for each rectangle via output
 
@@ -30,12 +30,14 @@ Currently, the program can:
 <?xml version="1.0" encoding="UTF-8"?>
 <rectangles>
 	<rectangle>
+		<id>1</id>
 		<height>5</height>
 		<width>10</width>
 		<x>0</x>
 		<y>0</y>
 	</rectangle>
 	<rectangle>
+		<id>2</id>
 		<height>10</height>
 		<width>20</width>
 		<x>10</x>

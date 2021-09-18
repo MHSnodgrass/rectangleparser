@@ -10,7 +10,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class RectangleEntityTests {
-    private Rectangle testRectangle = new Rectangle(10, 10, 0, 0);
+    private Rectangle testRectangle = new Rectangle(1,10, 10, 0, 0);
+
+    @Test
+    public void testRectangleId() {
+        assertThat(testRectangle).isNotNull();
+        assertThat(testRectangle.getId()).isNotNull().isEqualTo(1);
+    }
 
     @Test
     public void testRectangleHeight() {

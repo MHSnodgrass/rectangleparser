@@ -37,7 +37,9 @@ public class RectangleUtilsTests {
     // Regular Rectangle Tests
     @Test
     public void testRectangleListSize() {
-        // List length should be 2, not three (one rectangle should fail for poor data
+        // List length should be 8
+        // This tests if items are skipped if they are missing data (Rectangle #3)
+        // This also tests if rectangles with Ids already in use are skipped (Rectangle #10)
         assertThat(testRectangles).isNotNull();
         assertThat(testRectangles.size()).isEqualTo(8);
     }
@@ -45,7 +47,7 @@ public class RectangleUtilsTests {
     @Test
     public void testFirstRectangle() {
         Rectangle rect = testRectangles.get(0);
-        testRectangleFields(rect, 5, 10, 0, 0);
+        testRectangleFields(rect, 1, 5, 10, 0, 0);
         testRectangleXCoordinates(rect, 0, 10, 0, 10);
         testRectangleYCoordinates(rect, 0, 0, -5, -5);
     }
@@ -53,7 +55,7 @@ public class RectangleUtilsTests {
     @Test
     public void testSecondRectangle() {
         Rectangle rect = testRectangles.get(1);
-        testRectangleFields(rect, 10, 20, 10, 10);
+        testRectangleFields(rect, 2, 10, 20, 10, 10);
         testRectangleXCoordinates(rect, 10, 30, 10, 30);
         testRectangleYCoordinates(rect, 10, 10, 0, 0);
     }
@@ -93,8 +95,9 @@ public class RectangleUtilsTests {
     }
 
     // Helper Functions
-    public void testRectangleFields(Rectangle rect, Integer height, Integer width, Integer x, Integer y) {
+    public void testRectangleFields(Rectangle rect, Integer id, Integer height, Integer width, Integer x, Integer y) {
         assertThat(rect).isNotNull();
+        assertThat(rect.getId()).isNotNull().isEqualTo(id);
         assertThat(rect.getHeight()).isNotNull().isEqualTo(height);
         assertThat(rect.getWidth()).isNotNull().isEqualTo(width);
         assertThat(rect.getX()).isNotNull().isEqualTo(x);
