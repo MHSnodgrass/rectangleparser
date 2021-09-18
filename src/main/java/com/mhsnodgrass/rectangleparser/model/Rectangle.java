@@ -103,4 +103,43 @@ public class Rectangle {
     public List<List<Integer>> getCoordinates() {
         return coordinates;
     }
+
+    // Methods
+
+    /**
+     * <p>This method checks for intersection, including perfect overlap</p>
+     * <p>Uses the bottom left and top right coordinate of each rectangle to determine</p>
+     * <p>Checks if the following is true:</p>
+     * <p>X2R, Y2R > X1L, Y1L</p>
+     * <p>X1R, Y1R > X2L, Y2L</p>
+     * <p>X (Coordinate) - 1 (Rectangle Number) - R (Coordination Position, R would be Top Right)</p>
+     * @param rect2 Rectangle sent in to see if it intersects with this Rectangle
+     * @return Boolean value to represent if an intersection is present
+     */
+    public Boolean doesIntersect(Rectangle rect2) {
+        // First Rectangle
+        Integer x1L = this.coordinates.get(2).get(0);
+        Integer y1L = this.coordinates.get(2).get(1);
+        Integer x1R = this.coordinates.get(1).get(0);
+        Integer y1R = this.coordinates.get(1).get(1);
+
+        // Second Rectangle
+        Integer x2L = rect2.getCoordinates().get(2).get(0);
+        Integer y2L = rect2.getCoordinates().get(2).get(1);
+        Integer x2R = rect2.getCoordinates().get(1).get(0);
+        Integer y2R = rect2.getCoordinates().get(1).get(1);
+
+        // Check for perfect overlap
+        if (x1L == x2L && y1L == y2L && x1R == x2R && y1R == y2R) {
+            return true;
+        }
+
+        // Check for regular intersection
+        if ((x2R > x1L && y2R > y1L) && (x1R > x2L && y1R > y2L)) {
+            return true;
+        }
+
+        // Return false by default is nothing else matches
+        return false;
+    }
 }

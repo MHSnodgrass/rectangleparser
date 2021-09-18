@@ -18,4 +18,40 @@
 		<x>10</x>
 		<y>10</y>
 	</rectangle>
+	<rectangle>
+		<height>5</height>
+		<width>10</width>
+		<x>0</x>
+		<y>0</y>
+	</rectangle>
+	<rectangle>
+		<height>10</height>
+		<width>20</width>
+		<x>5</x>
+		<y>5</y>
+	</rectangle>
+	<rectangle>
+		<height>5</height>
+		<width>10</width>
+		<x>0</x>
+		<y>0</y>
+	</rectangle>
+	<rectangle>
+		<height>10</height>
+		<width>20</width>
+		<x>20</x>
+		<y>20</y>
+	</rectangle>
+	<rectangle>
+		<height>5</height>
+		<width>10</width>
+		<x>0</x>
+		<y>0</y>
+	</rectangle>
+	<rectangle>
+		<height>5</height>
+		<width>10</width>
+		<x>0</x>
+		<y>0</y>
+	</rectangle>
 </rectangles>
