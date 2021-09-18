@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class CommandRunner implements CommandLineRunner {
     @Autowired
-    private XmlParser xmlParser = new XmlParser();
+    private RectangleParser rectangleParser;
 
     public void run(String... args) {
         // Create options object to insert objects
@@ -43,7 +43,7 @@ public class CommandRunner implements CommandLineRunner {
 
             // -p
             if (line.hasOption("p")) {
-                xmlParser.parse(line);
+                rectangleParser.parse(line);
             // -h
             } else if (line.hasOption("h")) {
                 formatter.printHelp("java -jar rectangleparser-0.0.1-SNAPSHOT.jar -p [filename]", options);
