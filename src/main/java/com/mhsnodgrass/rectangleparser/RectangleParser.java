@@ -50,7 +50,10 @@ public class RectangleParser {
             List<List<Integer>> coordinates = rectangleList.get(i).getCoordinates();
             log.info("--------------------");
             log.info("RECTANGLE #" + (i + 1));
-            log.info("--------------------");
+            log.info("ID: " + rectangleList.get(i).getId());
+            log.info("WIDTH: " + rectangleList.get(i).getWidth());
+            log.info("HEIGHT: " + rectangleList.get(i).getHeight());
+            log.info("COORDINATES: ");
             log.info("TOP-LEFT: " + getCoordinatesFromList(coordinates, 0));
             log.info("TOP-RIGHT: " + getCoordinatesFromList(coordinates, 1));
             log.info("BOT-LEFT: " + getCoordinatesFromList(coordinates, 2));

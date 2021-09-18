@@ -9,6 +9,7 @@ import java.util.List;
 public class Rectangle {
     // Fields
     // All fields are final, this class is not meant to do transform methods
+    private final Integer id;
     private final Integer height;
     private final Integer width;
 
@@ -25,12 +26,14 @@ public class Rectangle {
     /**
      * <p>Creates a Rectangle with a specified height, width, and the x, y coordinates for the top left of the Rectangle</p>
      * <p>Also creates the coordinate list (top left, top right, bottom left, bottom right) using the width and height</p>
+     * @param id An Integer representing a unique Rectangle
      * @param height An Integer representing the height of the Rectangle
      * @param width An Integer representing the width of the Rectangle
      * @param x An Integer representing the top left x coordinate of the Rectangle
      * @param y An Integer representing the top left y coordinate of the Rectangle
      */
-    public Rectangle (Integer height, Integer width, Integer x, Integer y) {
+    public Rectangle (Integer id, Integer height, Integer width, Integer x, Integer y) {
+        this.id = id;
         this.height = height;
         this.width = width;
         this.x = x;
@@ -64,6 +67,14 @@ public class Rectangle {
     }
 
     // Getters
+
+    /**
+     * Gets the Rectangle's id
+     * @return An Integer representing a unique Rectangle
+     */
+    public Integer getId() {
+        return id;
+    }
     /**
      * Gets the Rectangle's height
      * @return An Integer representing the Rectangle's height

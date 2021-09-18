@@ -14,6 +14,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /** Utility class for Rectangles.
@@ -22,6 +23,7 @@ import java.util.List;
 @Slf4j
 @Component
 public class RectangleUtils {
+    private final static String ID = "id";
     private final static String HEIGHT = "height";
     private final static String WIDTH = "width";
     private final static String X = "x";
@@ -30,14 +32,17 @@ public class RectangleUtils {
     /**
      * <p>Parses the XML file input into Rectangle Entities by looping through each `rectangle` element found in XML file</p>
      * <p>Please see the {@link Rectangle} class for context</p>
-     * <p>Grabs each element (height, width, etc) and assigns it to a variable, then creates the Rectangle using the values</p>
-     * <p>If bad data is found (not an Integer, missing data, etc), it will skip the element</p>
+     * <p>Grabs each element (id, height, width, etc) and assigns it to a variable, then creates the Rectangle using the values</p>
+     * <p>If bad data is found (not an Integer, missing data, etc), it will skip the Rectangle</p>
+     * <p>If a duplicate Id is found, it will skip the Rectangle</p>
      * @param xmlFile XML file to be parsed into Rectangle objects
      * @return A List of created Rectangles from the XML file
      */
     public List<Rectangle> parseXmlToListOfRectangles(File xmlFile) {
         // Create a list of Rectangles
         List<Rectangle> rectangleList = new ArrayList<>();
+        // Create a set of ids to avoid duplicates
+        HashSet<Integer> rectangleIds = new HashSet<>();
 
         try {
             // Create XML document
@@ -52,19 +57,27 @@ public class RectangleUtils {
             for (int i = 0; i < rectangles.getLength(); i++) {
                 // Grab each element
                 Element element = (Element) rectangles.item(i);
+                Integer id = getIntegerFromElement(element, ID);
                 Integer height = getIntegerFromElement(element, HEIGHT);
                 Integer width = getIntegerFromElement(element, WIDTH);
                 Integer x = getIntegerFromElement(element, X);
                 Integer y = getIntegerFromElement(element, Y);
 
                 // Check if there was issues, skip
-                if (height == null || width == null || x == null || y == null) {
+                if (id == null || height == null || width == null || x == null || y == null) {
                     log.warn("Rectangle at index " + i + " was not processed. Please check error to see what failed.");
                     continue;
                 }
 
+                // Check if id is in the HashSet
+                if (rectangleIds.contains(id)) {
+                    log.warn("Rectangle at index " + i + " was not processed. The Id of the Rectangle has already been used.");
+                    continue;
+                }
+                rectangleIds.add(id);
+
                 // Add to the rectangle list
-                Rectangle rectangle = new Rectangle(height, width, x, y);
+                Rectangle rectangle = new Rectangle(id, height, width, x, y);
                 rectangleList.add(rectangle);
             }
         } catch (ParserConfigurationException e) {
