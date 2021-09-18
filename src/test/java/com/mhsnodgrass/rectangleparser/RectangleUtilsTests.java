@@ -1,0 +1,94 @@
+package com.mhsnodgrass.rectangleparser;
+
+import com.mhsnodgrass.rectangleparser.model.Rectangle;
+import com.mhsnodgrass.rectangleparser.util.RectangleUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.io.File;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@Slf4j
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@SpringBootTest
+public class RectangleUtilsTests {
+    @Value("${rectangleparser.default.filename}")
+    private String filename;
+
+    @Autowired
+    RectangleUtils rectangleUtils;
+
+    private List<Rectangle> testRectangles;
+
+    @BeforeAll
+    public void loadRectanglesFromFile() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File xmlFile = new File(classLoader.getResource(filename).getFile());
+        testRectangles = rectangleUtils.parseXmlToListOfRectangles(xmlFile);
+    }
+
+    @Test
+    public void testRectangleListSize() {
+        // List length should be 2, not three (one rectangle should fail for poor data
+        assertThat(testRectangles).isNotNull();
+        assertThat(testRectangles.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void testFirstRectangle() {
+        Rectangle rect = testRectangles.get(0);
+        testRectangleFields(rect, 5, 10, 0, 0);
+        testRectangleXCoordinates(rect, 0, 10, 0, 10);
+        testRectangleYCoordinates(rect, 0, 0, -5, -5);
+    }
+
+    @Test
+    public void testSecondRectangle() {
+        Rectangle rect = testRectangles.get(1);
+        testRectangleFields(rect, 10, 20, 10, 10);
+        testRectangleXCoordinates(rect, 10, 30, 10, 30);
+        testRectangleYCoordinates(rect, 10, 10, 0, 0);
+    }
+
+    // Helper Functions
+    public void testRectangleFields(Rectangle rect, Integer height, Integer width, Integer x, Integer y) {
+        assertThat(rect).isNotNull();
+        assertThat(rect.getHeight()).isNotNull().isEqualTo(height);
+        assertThat(rect.getWidth()).isNotNull().isEqualTo(width);
+        assertThat(rect.getX()).isNotNull().isEqualTo(x);
+        assertThat(rect.getY()).isNotNull().isEqualTo(y);
+    }
+
+    public void testRectangleXCoordinates(Rectangle rect, Integer topLeft, Integer topRight, Integer botLeft, Integer botRight) {
+        assertThat(rect).isNotNull();
+        List<List<Integer>> coordinates = rect.getCoordinates();
+
+        assertThat(coordinates).isNotNull();
+        assertThat(coordinates.size()).isEqualTo(4);
+
+        assertThat(coordinates.get(0).get(0)).isNotNull().isEqualTo(topLeft);
+        assertThat(coordinates.get(1).get(0)).isNotNull().isEqualTo(topRight);
+        assertThat(coordinates.get(2).get(0)).isNotNull().isEqualTo(botLeft);
+        assertThat(coordinates.get(3).get(0)).isNotNull().isEqualTo(botRight);
+    }
+
+    public void testRectangleYCoordinates(Rectangle rect, Integer topLeft, Integer topRight, Integer botLeft, Integer botRight) {
+        assertThat(rect).isNotNull();
+        List<List<Integer>> coordinates = rect.getCoordinates();
+
+        assertThat(coordinates).isNotNull();
+        assertThat(coordinates.size()).isEqualTo(4);
+
+        assertThat(coordinates.get(0).get(1)).isNotNull().isEqualTo(topLeft);
+        assertThat(coordinates.get(1).get(1)).isNotNull().isEqualTo(topRight);
+        assertThat(coordinates.get(2).get(1)).isNotNull().isEqualTo(botLeft);
+        assertThat(coordinates.get(3).get(1)).isNotNull().isEqualTo(botRight);
+    }
+}
