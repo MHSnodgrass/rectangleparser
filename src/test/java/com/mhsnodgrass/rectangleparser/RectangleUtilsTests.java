@@ -34,11 +34,12 @@ public class RectangleUtilsTests {
         testRectangles = rectangleUtils.parseXmlToListOfRectangles(xmlFile);
     }
 
+    // Regular Rectangle Tests
     @Test
     public void testRectangleListSize() {
         // List length should be 2, not three (one rectangle should fail for poor data
         assertThat(testRectangles).isNotNull();
-        assertThat(testRectangles.size()).isEqualTo(2);
+        assertThat(testRectangles.size()).isEqualTo(8);
     }
 
     @Test
@@ -55,6 +56,40 @@ public class RectangleUtilsTests {
         testRectangleFields(rect, 10, 20, 10, 10);
         testRectangleXCoordinates(rect, 10, 30, 10, 30);
         testRectangleYCoordinates(rect, 10, 10, 0, 0);
+    }
+
+    // Intersection Tests
+    @Test
+    public void testIntersectingRectangles() {
+        Rectangle rect1 = testRectangles.get(2);
+        Rectangle rect2 = testRectangles.get(3);
+
+        assertThat(rect1).isNotNull();
+        assertThat(rect2).isNotNull();
+
+        assertThat(rect1.doesIntersect(rect2)).isTrue();
+    }
+
+    @Test
+    public void testNonIntersectingRectangles() {
+        Rectangle rect1 = testRectangles.get(4);
+        Rectangle rect2 = testRectangles.get(5);
+
+        assertThat(rect1).isNotNull();
+        assertThat(rect2).isNotNull();
+
+        assertThat(rect1.doesIntersect(rect2)).isFalse();
+    }
+
+    @Test
+    public void testPerfectOverlap() {
+        Rectangle rect1 = testRectangles.get(6);
+        Rectangle rect2 = testRectangles.get(7);
+
+        assertThat(rect1).isNotNull();
+        assertThat(rect2).isNotNull();
+
+        assertThat(rect1.doesIntersect(rect2)).isTrue();
     }
 
     // Helper Functions
