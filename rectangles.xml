@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rectangles>
+	<rectangle>
+		<height>5</height>
+		<width>10</width>
+		<x>0</x>
+		<y>0</y>
+	</rectangle>
+	<rectangle>
+		<height>10</height>
+		<width>20</width>
+		<x>10</x>
+		<y>10</y>
+	</rectangle>
+</rectangles>

@@ -2,12 +2,16 @@ package com.mhsnodgrass.rectangleparser;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.cli.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
 public class CommandRunner implements CommandLineRunner {
+    @Autowired
+    XmlParser xmlParser = new XmlParser();
+
     public void run(String... args) {
         // Create options object to insert objects
         Options options = new Options();
@@ -15,7 +19,7 @@ public class CommandRunner implements CommandLineRunner {
         // Create the parsing option
         Option parse = Option.builder("p")
                 .longOpt("Parse")
-                .desc("Parses XML file into rectangle entities")
+                .desc("Parses XML file into rectangle entities. You can define the filename after the option, or it will use the default from application.properties")
                 .argName("PARSE")
                 .build();
         Option help = Option.builder("h")
@@ -39,13 +43,13 @@ public class CommandRunner implements CommandLineRunner {
 
             // -p
             if (line.hasOption("p")) {
-                log.info("Parsed -p correctly!");
+                xmlParser.parse(line);
             // -h
             } else if (line.hasOption("h")) {
-                formatter.printHelp("java -jar rectangleparser-0.0.1-SNAPSHOT.jar", options);
+                formatter.printHelp("java -jar rectangleparser-0.0.1-SNAPSHOT.jar -p [filename]", options);
             // Default help message
             } else {
-                formatter.printHelp("java -jar rectangleparser-0.0.1-SNAPSHOT.jar", options);
+                formatter.printHelp("java -jar rectangleparser-0.0.1-SNAPSHOT.jar -p [filename]", options);
             }
         } catch (ParseException e) {
             log.error("Error parsing arguments/options", e);
