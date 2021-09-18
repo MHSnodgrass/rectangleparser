@@ -3,6 +3,9 @@ package com.mhsnodgrass.rectangleparser.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Represents a Rectangle.
+ * @author Matthew Snodgrass
+ */
 public class Rectangle {
     // Fields
     // All fields are final, this class is not meant to do transform methods
@@ -19,6 +22,14 @@ public class Rectangle {
     private final List<List<Integer>> coordinates = new ArrayList<>();
 
     // Constructor
+    /**
+     * <p>Creates a Rectangle with a specified height, width, and the x, y coordinates for the top left of the Rectangle</p>
+     * <p>Also creates the coordinate list (top left, top right, bottom left, bottom right) using the width and height</p>
+     * @param height An Integer representing the height of the Rectangle
+     * @param width An Integer representing the width of the Rectangle
+     * @param x An Integer representing the top left x coordinate of the Rectangle
+     * @param y An Integer representing the top left y coordinate of the Rectangle
+     */
     public Rectangle (Integer height, Integer width, Integer x, Integer y) {
         this.height = height;
         this.width = width;
@@ -53,22 +64,42 @@ public class Rectangle {
     }
 
     // Getters
+    /**
+     * Gets the Rectangle's height
+     * @return An Integer representing the Rectangle's height
+     */
     public Integer getHeight() {
         return height;
     }
 
+    /**
+     * Gets the Rectangle's width
+     * @return An Integer representing the Rectangle's width
+     */
     public Integer getWidth() {
         return width;
     }
 
+    /**
+     * Gets the Rectangle's top left x coordinate
+     * @return An Integer representing the Rectangle's top left x coordinate
+     */
     public Integer getX() {
         return x;
     }
 
+    /**
+     * Gets the Rectangle's top left y coordinate
+     * @return An Integer representing the Rectangle's top left y coordinate
+     */
     public Integer getY() {
         return y;
     }
 
+    /**
+     * Gets the Rectangle's top left, top right, bottom left, and bottom right coordinates
+     * @return A List containing Lists of x and y coordinates
+     */
     public List<List<Integer>> getCoordinates() {
         return coordinates;
     }

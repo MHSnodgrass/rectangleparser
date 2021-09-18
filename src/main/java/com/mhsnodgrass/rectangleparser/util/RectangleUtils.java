@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Utility class for Rectangles.
+ * @author Matthew Snodgrass
+ */
 @Slf4j
 @Component
 public class RectangleUtils {
@@ -24,6 +27,14 @@ public class RectangleUtils {
     private final static String X = "x";
     private final static String Y = "y";
 
+    /**
+     * <p>Parses the XML file input into Rectangle Entities by looping through each `rectangle` element found in XML file</p>
+     * <p>Please see the {@link Rectangle} class for context</p>
+     * <p>Grabs each element (height, width, etc) and assigns it to a variable, then creates the Rectangle using the values</p>
+     * <p>If bad data is found (not an Integer, missing data, etc), it will skip the element</p>
+     * @param xmlFile XML file to be parsed into Rectangle objects
+     * @return A List of created Rectangles from the XML file
+     */
     public List<Rectangle> parseXmlToListOfRectangles(File xmlFile) {
         // Create a list of Rectangles
         List<Rectangle> rectangleList = new ArrayList<>();

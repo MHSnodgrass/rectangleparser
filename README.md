@@ -6,6 +6,7 @@
 - Added dependencies:
     - Commons CLI for command line
     - Lombok for easy logging
+    - Maven-javadoc-plugin for easy javadoc creation
 
 Currently, the program can:
 - Parse an XML file to get rectangle data (height, width, x, y)
@@ -16,6 +17,7 @@ Currently, the program can:
 - Have `Maven` installed
 - Clone https://gitlab.com/MHSnodgrass/rectangleparser.git
 - Build with `mvn install`
+- Javadocs can be created using `mvn javadoc:javadoc`
 
 ## How To Run
 - Make sure to have an XML file with rectangle data in the same folder as the jar to run. Please see below for an example file.

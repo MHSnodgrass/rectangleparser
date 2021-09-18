@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.util.List;
 
+/** RectangleParser handles the options accepted by the {@link CommandRunner}
+ * @author Matthew Snodgrass
+ */
 @Slf4j
 @Component
 public class RectangleParser {
@@ -20,6 +23,13 @@ public class RectangleParser {
     @Value("${rectangleparser.default.filename}")
     private String filename;
 
+    /**
+     * <p>Parses the CommandLine input sent in and checks for any filenames, will use default from application.properties if not found</p>
+     * <p>If the filename is missing '.xml', it will add it</p>
+     * <p>It will create the file from the filename and send it to {@link RectangleUtils} to retrieve the Rectangle objects</p>
+     * <p>Will output each Rectangle's top left, top right, bottom left, and bottom right x, y coordinates</p>
+     * @param cmd Commandline contains any arguments from the user for changing what file should be read in
+     */
     public void parse(CommandLine cmd) {
         // Check if user provided name of XML file, if not, process default
         if (!cmd.getArgList().isEmpty() && cmd.getArgList().size() == 1) {
