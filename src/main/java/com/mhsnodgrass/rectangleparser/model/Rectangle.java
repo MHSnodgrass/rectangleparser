@@ -16,7 +16,7 @@ public class Rectangle {
     // List of coordinates are created using the first coordinate and the height and width
     // The list will contain 4 sets of x and y coordinates of the rectangle.
     // Index listing: (0 - Top left, 1 - Top Right, 2 - Bottom Left, 3 - Bottom Right)
-    private List<List<Integer>> coordinates = new ArrayList<>();
+    private final List<List<Integer>> coordinates = new ArrayList<>();
 
     // Constructor
     public Rectangle (Integer height, Integer width, Integer x, Integer y) {
