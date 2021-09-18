@@ -1,7 +1,7 @@
 # Rectangle Parser
 
 ## Info
-- Language: Java
+- Language: Java (JDK-11)
 - Frameworks: Spring Boot
 - Added dependencies:
     - Commons CLI for command line
