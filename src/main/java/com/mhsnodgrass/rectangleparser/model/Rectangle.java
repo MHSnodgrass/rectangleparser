@@ -13,7 +13,6 @@ import java.util.stream.IntStream;
 /** Represents a Rectangle.
  * @author Matthew Snodgrass
  */
-@Slf4j
 public class Rectangle {
     // enums
     public enum Adjacency {
