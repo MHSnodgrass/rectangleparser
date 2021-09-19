@@ -34,7 +34,6 @@ public class RectangleUtilsTests {
         testRectangles = rectangleUtils.parseXmlToListOfRectangles(xmlFile);
     }
 
-    // Regular Rectangle Tests
     @Test
     public void testRectangleListSize() {
         // This tests if items are skipped if they are missing data (Rectangle #3)
