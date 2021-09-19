@@ -49,13 +49,19 @@ public class OutputHandler {
      */
     public void printIntersectionCoordinates(CommandLine cmd, Boolean verbose) {
         // Check arguments
-        processArgs(cmd, false);
+        Boolean argFlag = processArgs(cmd, false);
+        List<Rectangle> rect = null;
 
-        // Grab the list of files
-        List<Rectangle> rectangleList = rectangleParser.getRectangleListFromFile(filename);
+        if (argFlag) {
+            // Grab the list of files
+            List<Rectangle> rectangleList = rectangleParser.getRectangleListFromFile(filename);
 
-        // Filter for rectangles matching ids given by user
-        List<Rectangle> rect = rectangleParser.filterRectanglesListByIds(rectangleList, idOne, idTwo);
+            // Filter for rectangles matching ids given by user
+            rect = null;
+            if (rectangleList != null && !rectangleList.isEmpty()) {
+                rect = rectangleParser.filterRectanglesListByIds(rectangleList, idOne, idTwo);
+            }
+        }
 
         // Check list before processing
         if (rect != null) {
@@ -87,13 +93,19 @@ public class OutputHandler {
      */
     public void printContainment(CommandLine cmd, Boolean verbose) {
         // Check arguments
-        processArgs(cmd, false);
+        Boolean argFlag = processArgs(cmd, false);
+        List<Rectangle> rect = null;
 
-        // Grab the list of files
-        List<Rectangle> rectangleList = rectangleParser.getRectangleListFromFile(filename);
+        if (argFlag) {
+            // Grab the list of files
+            List<Rectangle> rectangleList = rectangleParser.getRectangleListFromFile(filename);
 
-        // Filter for rectangles matching ids given by user
-        List<Rectangle> rect = rectangleParser.filterRectanglesListByIds(rectangleList, idOne, idTwo);
+            // Filter for rectangles matching ids given by user
+            rect = null;
+            if (rectangleList != null && !rectangleList.isEmpty()) {
+                rect = rectangleParser.filterRectanglesListByIds(rectangleList, idOne, idTwo);
+            }
+        }
 
         // Check list before processing
         if (rect != null) {
@@ -114,13 +126,19 @@ public class OutputHandler {
      */
     public void printAdjacency(CommandLine cmd, Boolean verbose) {
         // Check arguments
-        processArgs(cmd, false);
+        Boolean argFlag = processArgs(cmd, false);
+        List<Rectangle> rect = null;
 
-        // Grab the list of files
-        List<Rectangle> rectangleList = rectangleParser.getRectangleListFromFile(filename);
+        if (argFlag) {
+            // Grab the list of files
+            List<Rectangle> rectangleList = rectangleParser.getRectangleListFromFile(filename);
 
-        // Filter for rectangles matching ids given by user
-        List<Rectangle> rect = rectangleParser.filterRectanglesListByIds(rectangleList, idOne, idTwo);
+            // Filter for rectangles matching ids given by user
+            rect = null;
+            if (rectangleList != null && !rectangleList.isEmpty()) {
+                rect = rectangleParser.filterRectanglesListByIds(rectangleList, idOne, idTwo);
+            }
+        }
 
         // Check list before processing
         if (rect != null) {
@@ -172,24 +190,29 @@ public class OutputHandler {
         filename = filename.endsWith(".xml") ? filename : filename + ".xml";
     }
 
-    private void processArgs(CommandLine cmd, Boolean regularParse) {
+    private Boolean processArgs(CommandLine cmd, Boolean regularParse) {
         if (regularParse) {
             // Check if user provided name of XML file, if not, process default
             if (!cmd.getArgList().isEmpty() && cmd.getArgList().size() == 1) {
                 checkFilenameExtension(cmd.getArgList().get(0));
+                return true;
             } else {
                 log.info("Filename was not provided, using default: " + filename);
+                return false;
             }
         } else {
             if (!cmd.getArgList().isEmpty() && cmd.getArgList().size() == 3) {
                 try {
                     idOne = Integer.parseInt(cmd.getArgList().get(1));
                     idTwo = Integer.parseInt(cmd.getArgList().get(2));
+                    return true;
                 } catch (NumberFormatException e) {
                     log.error("Error parsing one of the ids passed in, please make sure the id is a number", e);
+                    return false;
                 }
             } else {
                 log.error("The number of arguments is not 3. Please send in <filename> <id> <id>");
+                return false;
             }
         }
     }
