@@ -47,7 +47,7 @@ public class OutputHandler {
      * <p>Will output each Rectangle using it's toString method, tell the user if they intersect, and print out any intersecting coordinates</p>
      * @param cmd Commandline contains arguments for the file to be read in and an id for the two rectangles that are to be checked
      */
-    public void printIntersectionCoordinates(CommandLine cmd) {
+    public void printIntersectionCoordinates(CommandLine cmd, Boolean verbose) {
         // Check arguments
         processArgs(cmd, false);
 
@@ -61,7 +61,7 @@ public class OutputHandler {
         if (rect != null) {
             // Get the Intersect Values
             List<Pair<Integer, Integer>> intersectValues = rectangleParser.intersect(rect);
-            outputRectangleInfo(rect, false);
+            outputRectangleInfo(rect, verbose);
             log.info("--------------------");
             log.info("DOES RECTANGLE #2 INTERSECT RECTANGLE #1: " + ((intersectValues != null) ? "Yes" : "No"));
 
@@ -85,7 +85,7 @@ public class OutputHandler {
      * <p>Will output each Rectangle using it's toString method and tell the user if the first rectangle contains the second</p>
      * @param cmd Commandline contains arguments for the file to be read in and an id for the two rectangles that are to be checked
      */
-    public void printContainment(CommandLine cmd) {
+    public void printContainment(CommandLine cmd, Boolean verbose) {
         // Check arguments
         processArgs(cmd, false);
 
@@ -98,7 +98,7 @@ public class OutputHandler {
         // Check list before processing
         if (rect != null) {
             Boolean contain = rectangleParser.contain(rect);
-            outputRectangleInfo(rect, false);
+            outputRectangleInfo(rect, verbose);
             log.info("--------------------");
             log.info("DOES RECTANGLE #1 CONTAIN RECTANGLE #2: " + ((contain) ? "Yes" : "No"));
         }
@@ -112,7 +112,7 @@ public class OutputHandler {
      * <p>Will output each Rectangle using it's toString method and tell the user if they are adjacent and what type of adjacency is present</p>
      * @param cmd Commandline contains arguments for the file to be read in and an id for the two rectangles that are to be checked
      */
-    public void printAdjacency(CommandLine cmd) {
+    public void printAdjacency(CommandLine cmd, Boolean verbose) {
         // Check arguments
         processArgs(cmd, false);
 
@@ -125,7 +125,7 @@ public class OutputHandler {
         // Check list before processing
         if (rect != null) {
             Rectangle.Adjacency adjacency = rectangleParser.adjacent(rect);
-            outputRectangleInfo(rect, false);
+            outputRectangleInfo(rect, verbose);
             log.info("--------------------");
             log.info("IS RECTANGLE #1 & RECTANGLE #2 ADJACENT:  " + ((adjacency == Rectangle.Adjacency.NONE) ? "No" : "Yes"));
             log.info("ADJACENT TYPE: " + returnStringFromEnum(adjacency));
