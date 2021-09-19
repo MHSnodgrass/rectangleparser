@@ -118,6 +118,22 @@ public class Rectangle {
     // Methods
 
     /**
+     * toString override
+     * @return A string representing the rectangle, including all of the coordinates
+     */
+    @Override
+    public String toString() {
+         return "ID: " + this.id + ", " +
+                 "WIDTH: " + this.width + ", " +
+                 "HEIGHT: " + this.height + " | " +
+                 "COORDINATES: " +
+                 "TL: " + "(" + getCoordinatesFromList(coordinates, 0) + ")" + " / " +
+                 "TR: " + "(" + getCoordinatesFromList(coordinates, 1) + ")" + " / " +
+                 "BL: " + "(" + getCoordinatesFromList(coordinates, 2) + ")" + " / " +
+                 "BR: " + "(" + getCoordinatesFromList(coordinates, 3) + ")";
+    }
+
+    /**
      * <p>This method checks for intersection, including perfect overlap</p>
      * <p>Uses the bottom left and top right coordinate of each rectangle to determine</p>
      * <p>Checks if the following is true:</p>
@@ -152,5 +168,12 @@ public class Rectangle {
 
         // Return false by default is nothing else matches
         return false;
+    }
+
+    // Helper function to grab the coordinates and return them as a string
+    private String getCoordinatesFromList(List<List<Integer>> coordinates, int index) {
+        String x = coordinates.get(index).get(0).toString();
+        String y = coordinates.get(index).get(1).toString();
+        return x + ", " + y;
     }
 }
