@@ -85,7 +85,7 @@ public class RectangleParser {
 
                         outputRectangleInfo(tempRectangleList);
                         log.info("--------------------");
-                        log.info("DO THE TWO RECTANGLES INTERSECT: " + ((intersect) ? "Yes" : "No"));
+                        log.info("DOES RECTANGLE #2 INTERSECT RECTANGLE #1: " + ((intersect) ? "Yes" : "No"));
                     } else {
                         log.error("ID: " + idTwo + " was not found among the Rectangles in the XML file");
                     }
