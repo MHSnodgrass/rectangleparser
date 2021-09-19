@@ -37,11 +37,10 @@ public class RectangleUtilsTests {
     // Regular Rectangle Tests
     @Test
     public void testRectangleListSize() {
-        // List length should be 10
         // This tests if items are skipped if they are missing data (Rectangle #3)
         // This also tests if rectangles with Ids already in use are skipped (Rectangle #10)
         assertThat(testRectangles).isNotNull();
-        assertThat(testRectangles.size()).isEqualTo(10);
+        assertThat(testRectangles.size()).isEqualTo(22);
     }
 
     @Test
@@ -115,6 +114,106 @@ public class RectangleUtilsTests {
         assertThat(rect2).isNotNull();
 
         assertThat(rect1.doesContain(rect2)).isFalse();
+    }
+
+    // Adjacency Tests
+    @Test
+    public void testAdjacentProperLeftRight() {
+        Rectangle rect1 = testRectangles.get(10);
+        Rectangle rect2 = testRectangles.get(11);
+
+        assertThat(rect1).isNotNull();
+        assertThat(rect2).isNotNull();
+
+        assertThat(rect1.isAdjacent(rect2)).isEqualTo(Rectangle.Adjacency.PROPER);
+    }
+
+    @Test
+    public void testAdjacentProperBottomTop() {
+        Rectangle rect1 = testRectangles.get(12);
+        Rectangle rect2 = testRectangles.get(13);
+
+        assertThat(rect1).isNotNull();
+        assertThat(rect2).isNotNull();
+
+        assertThat(rect1.isAdjacent(rect2)).isEqualTo(Rectangle.Adjacency.PROPER);
+    }
+
+    @Test
+    public void testAdjacentSubLineLeftRight() {
+        Rectangle rect1 = testRectangles.get(14);
+        Rectangle rect2 = testRectangles.get(15);
+
+        assertThat(rect1).isNotNull();
+        assertThat(rect2).isNotNull();
+
+        assertThat(rect1.isAdjacent(rect2)).isEqualTo(Rectangle.Adjacency.SUBLINE);
+    }
+
+    @Test
+    public void testAdjacentSubLineBottomTop() {
+        Rectangle rect1 = testRectangles.get(16);
+        Rectangle rect2 = testRectangles.get(17);
+
+        assertThat(rect1).isNotNull();
+        assertThat(rect2).isNotNull();
+
+        assertThat(rect1.isAdjacent(rect2)).isEqualTo(Rectangle.Adjacency.SUBLINE);
+    }
+
+    @Test
+    public void testAdjacentPartialLeftRight() {
+        Rectangle rect1 = testRectangles.get(18);
+        Rectangle rect2 = testRectangles.get(19);
+
+        assertThat(rect1).isNotNull();
+        assertThat(rect2).isNotNull();
+
+        assertThat(rect1.isAdjacent(rect2)).isEqualTo(Rectangle.Adjacency.PARTIAL);
+    }
+
+    @Test
+    public void testAdjacentPartialBottomTop() {
+        Rectangle rect1 = testRectangles.get(20);
+        Rectangle rect2 = testRectangles.get(21);
+
+        assertThat(rect1).isNotNull();
+        assertThat(rect2).isNotNull();
+
+        assertThat(rect1.isAdjacent(rect2)).isEqualTo(Rectangle.Adjacency.PARTIAL);
+    }
+
+    @Test
+    public void testAdjacentNone() {
+        Rectangle rect1 = testRectangles.get(2);
+        Rectangle rect2 = testRectangles.get(3);
+
+        assertThat(rect1).isNotNull();
+        assertThat(rect2).isNotNull();
+
+        assertThat(rect1.isAdjacent(rect2)).isEqualTo(Rectangle.Adjacency.NONE);
+    }
+
+    @Test
+    public void testAdjacentNonePerfectOverlap() {
+        Rectangle rect1 = testRectangles.get(6);
+        Rectangle rect2 = testRectangles.get(7);
+
+        assertThat(rect1).isNotNull();
+        assertThat(rect2).isNotNull();
+
+        assertThat(rect1.isAdjacent(rect2)).isEqualTo(Rectangle.Adjacency.NONE);
+    }
+
+    @Test
+    public void testAdjacentNoneIntersection() {
+        Rectangle rect1 = testRectangles.get(2);
+        Rectangle rect2 = testRectangles.get(3);
+
+        assertThat(rect1).isNotNull();
+        assertThat(rect2).isNotNull();
+
+        assertThat(rect1.isAdjacent(rect2)).isEqualTo(Rectangle.Adjacency.NONE);
     }
 
     // Helper Functions

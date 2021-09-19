@@ -4,6 +4,7 @@ import com.mhsnodgrass.rectangleparser.model.Rectangle;
 import com.mhsnodgrass.rectangleparser.util.RectangleUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -32,7 +33,7 @@ public class RectangleParser {
      * <p>Will output each Rectangle using it's toString method</p>
      * @param cmd Commandline contains any arguments from the user for changing what file should be read in
      */
-    public void parse(CommandLine cmd) {
+    public void parse(CommandLine cmd, Boolean verbose) {
         // Check if user provided name of XML file, if not, process default
         if (!cmd.getArgList().isEmpty() && cmd.getArgList().size() == 1) {
             checkFilenameExtension(cmd.getArgList().get(0));
@@ -44,7 +45,7 @@ public class RectangleParser {
         List<Rectangle> rectangleList = getRectangleListFromFile();
 
         //Output each rectangle
-        outputRectangleInfo(rectangleList);
+        outputRectangleInfo(rectangleList, verbose);
     }
 
     /**
@@ -83,7 +84,7 @@ public class RectangleParser {
                         tempRectangleList.add(rect1.get(0));
                         tempRectangleList.add(rect2.get(0));
 
-                        outputRectangleInfo(tempRectangleList);
+                        outputRectangleInfo(tempRectangleList, false);
                         log.info("--------------------");
                         log.info("DOES RECTANGLE #2 INTERSECT RECTANGLE #1: " + ((intersect) ? "Yes" : "No"));
                     } else {
@@ -136,7 +137,7 @@ public class RectangleParser {
                         tempRectangleList.add(rect1.get(0));
                         tempRectangleList.add(rect2.get(0));
 
-                        outputRectangleInfo(tempRectangleList);
+                        outputRectangleInfo(tempRectangleList, false);
                         log.info("--------------------");
                         log.info("DOES RECTANGLE #1 CONTAIN RECTANGLE #2: " + ((contain) ? "Yes" : "No"));
                     } else {
@@ -163,11 +164,37 @@ public class RectangleParser {
         return  rectangleList;
     }
 
-    private void outputRectangleInfo(List<Rectangle> rectangleList) {
+    private void outputRectangleInfo(List<Rectangle> rectangleList, Boolean verbose) {
         for (int i = 0; i < rectangleList.size(); i++) {
             log.info("--------------------");
             log.info("RECTANGLE #" + (i + 1));
             log.info(rectangleList.get(i).toString());
+            if (verbose) {
+                log.info("--------------------");
+                log.info("Top Coordinates:");
+                log.info("--------------------");
+                for (Pair<Integer, Integer> p : rectangleList.get(i).getAllCoordinates().get(0)) {
+                    log.info("(" + p.getKey() + ", " + p.getValue() + ")");
+                }
+                log.info("--------------------");
+                log.info("Right Coordinates:");
+                log.info("--------------------");
+                for (Pair<Integer, Integer> p : rectangleList.get(i).getAllCoordinates().get(1)) {
+                    log.info("(" + p.getKey() + ", " + p.getValue() + ")");
+                }
+                log.info("--------------------");
+                log.info("Bottom Coordinates:");
+                log.info("--------------------");
+                for (Pair<Integer, Integer> p : rectangleList.get(i).getAllCoordinates().get(2)) {
+                    log.info("(" + p.getKey() + ", " + p.getValue() + ")");
+                }
+                log.info("--------------------");
+                log.info("Left Coordinates:");
+                log.info("--------------------");
+                for (Pair<Integer, Integer> p : rectangleList.get(i).getAllCoordinates().get(3)) {
+                    log.info("(" + p.getKey() + ", " + p.getValue() + ")");
+                }
+            }
         }
     }
 

@@ -1,12 +1,26 @@
 package com.mhsnodgrass.rectangleparser.model;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /** Represents a Rectangle.
  * @author Matthew Snodgrass
  */
 public class Rectangle {
+    // enums
+    public enum Adjacency {
+        SUBLINE,
+        PROPER,
+        PARTIAL,
+        NONE
+    }
+
     // Fields
     // All fields are final, this class is not meant to do transform methods
     private final Integer id;
@@ -116,7 +130,6 @@ public class Rectangle {
     }
 
     // Methods
-
     /**
      * toString override
      * @return A string representing the rectangle, including all of the coordinates
@@ -157,7 +170,7 @@ public class Rectangle {
         Integer y2R = rect2.getCoordinates().get(1).get(1);
 
         // Check for perfect overlap
-        if (x1L == x2L && y1L == y2L && x1R == x2R && y1R == y2R) {
+        if (doesRectanglesOverlap(rect2)) {
             return true;
         }
 
@@ -202,11 +215,141 @@ public class Rectangle {
         return false;
     }
 
+    /**
+     * <p>This method checks for adjacency, including sub-line, proper, and partial</p>
+     * <p>Uses all of the coordinates of each Rectangle</p>
+     * <p>Checks if a Rectangle has all of the coordinates of another Rectangle for proper and sub-line</p>
+     * <p>Checks if a Rectangle has any of the coordinates of another Rectangle for partial</p>
+     * @param rect2 Rectangle sent in to see if this Rectangle is adjacent
+     * @return Adjacency (enum) value to represent what, if any, adjacency is present (PROPER, SUBLINE, PARTIAL, NONE)
+     */
+    public Adjacency isAdjacent(Rectangle rect2) {
+        List<List<Pair<Integer, Integer>>> firstCoordinates = this.getAllCoordinates();
+        List<List<Pair<Integer, Integer>>> secondCoordinates = rect2.getAllCoordinates();
+        Adjacency adjacency = Adjacency.NONE;
+
+        // Check for perfect overlap, skip if true
+        if (!doesRectanglesOverlap(rect2)) {
+            // Check for PROPER or SUBLINE first
+            // Check each side of the first Rectangle
+            for (int i = 0; i < firstCoordinates.size(); i++) {
+                // Check each side of the second Rectangle against each side of the first
+                for (int j = 0; j < secondCoordinates.size(); j++) {
+                    // Check if all coordinates match
+                    Boolean allMatchOne = firstCoordinates.get(i).containsAll(secondCoordinates.get(j));
+                    Boolean allMatchTwo = secondCoordinates.get(j).containsAll(firstCoordinates.get(i));
+                    if (allMatchOne || allMatchTwo) {
+                        // Check if the amount of coordinates is the same
+                        if (firstCoordinates.get(i).size() == secondCoordinates.get(j).size()) {
+                            return Adjacency.PROPER;
+                        } else {
+                            return Adjacency.SUBLINE;
+                        }
+                    }
+                }
+            }
+
+            // Check if it is an intersection first, skip if true
+            if (!doesIntersect(rect2)) {
+                // Check again for Partial if PROPER or SUBLINE was not found
+                for (int i = 0; i < firstCoordinates.size(); i++) {
+                    // Check each side of the second Rectangle against each side of the first
+                    for (int j = 0; j < secondCoordinates.size(); j++) {
+                        // Check if any of the coordinates match
+                        Boolean anyMatch = CollectionUtils.containsAny(firstCoordinates.get(i), secondCoordinates.get(j));
+                        if (anyMatch) {
+                            return Adjacency.PARTIAL;
+                        }
+                    }
+                }
+            }
+        }
+
+        return adjacency;
+    }
+
+    /**
+     * Gets all of the Rectangle's coordinates
+     * @return A List containing Lists of pairs of coordinates for the top, right, bottom, and left of the Rectangle
+     */
+    public List<List<Pair<Integer, Integer>>> getAllCoordinates() {
+        List<List<Pair<Integer, Integer>>> results = new ArrayList<>();
+
+        // Top Coordinates
+        results.add(getCoordinateRange(0, 1));
+        // Right Coordinates
+        results.add(getCoordinateRange(3, 1));
+        // Bottom Coordinates
+        results.add(getCoordinateRange(2, 3));
+        // Left Coordinates
+        results.add(getCoordinateRange(2, 0));
+
+        return results;
+    }
+
     // Helper functions
     // Grab the coordinates and return them as a string
     private String getCoordinatesFromList(List<List<Integer>> coordinates, int index) {
         String x = coordinates.get(index).get(0).toString();
         String y = coordinates.get(index).get(1).toString();
         return x + ", " + y;
+    }
+
+    // Grab the range of coordinates between two coordinates
+    private List<Pair<Integer, Integer>> getCoordinateRange(Integer firstCoordinate, Integer secondCoordinate) {
+        List<Pair<Integer, Integer>> coordinates = new ArrayList<>();
+        List<Integer> xCoordinates = new ArrayList<>();
+        List<Integer> yCoordinates = new ArrayList<>();
+        Integer x1;
+        Integer y1;
+        Integer x2;
+        Integer y2;
+
+        x1 = this.coordinates.get(firstCoordinate).get(0);
+        y1 = this.coordinates.get(firstCoordinate).get(1);
+        x2 = this.coordinates.get(secondCoordinate).get(0);
+        y2 = this.coordinates.get(secondCoordinate).get(1);
+
+        // Check for a static coordinate between both points
+        if (x1 == x2) {
+            xCoordinates.add(x1);
+        } else {
+            xCoordinates = IntStream.range(x1, x2 + 1).boxed().collect(Collectors.toList());
+        }
+
+        if (y1 == y2) {
+            yCoordinates.add(y1);
+        } else {
+            yCoordinates = IntStream.range(y1, y2 + 1).boxed().collect(Collectors.toList());
+        }
+
+        // Check if a list needs to be populated
+        if (xCoordinates.size() == 1) {
+            List<Integer> tempList = new ArrayList<>();
+            for (int i = 0; i < yCoordinates.size(); i++) {
+                tempList.add(xCoordinates.get(0));
+            }
+            xCoordinates = tempList;
+        }
+
+        if (yCoordinates.size() == 1) {
+            List<Integer> tempList = new ArrayList<>();
+            for (int i = 0; i < xCoordinates.size(); i++) {
+                tempList.add(yCoordinates.get(0));
+            }
+            yCoordinates = tempList;
+        }
+
+        // Create the pairs and add to the list
+        for (int i = 0; i < xCoordinates.size(); i++) {
+            ImmutablePair<Integer, Integer> p = new ImmutablePair<>(xCoordinates.get(i), yCoordinates.get(i));
+            coordinates.add(p);
+        }
+
+        return coordinates;
+    }
+
+    public Boolean doesRectanglesOverlap(Rectangle rect2) {
+        return (this.height == rect2.getHeight() && this.width == rect2.getWidth() && this.x == rect2.getX() && this.y == rect2.getY());
     }
 }
