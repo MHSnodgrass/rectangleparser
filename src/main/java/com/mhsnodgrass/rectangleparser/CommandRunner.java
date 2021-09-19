@@ -21,6 +21,9 @@ public class CommandRunner implements CommandLineRunner {
     @Autowired
     private RectangleParser rectangleParser;
 
+    @Autowired
+    private OutputHandler outputHandler;
+
     /**
      * <p>Takes in the arguments from the command line and checks for options (-p, -h, etc)</p>
      * <p>-p parses the XML file provided as an argument (or uses a default name from application.properties).</p>
@@ -85,19 +88,19 @@ public class CommandRunner implements CommandLineRunner {
 
             // -p
             if (line.hasOption("p")) {
-                rectangleParser.parse(line, false);
+                outputHandler.printRectangleList(line, false);
             // -pv
             } else if (line.hasOption("pv")){
-                rectangleParser.parse(line, true);
+                outputHandler.printRectangleList(line, true);
             // -i
             } else if (line.hasOption("i")){
-                rectangleParser.intersect(line);
+                outputHandler.printIntersectionCoordinates(line);
             // -c
             } else if (line.hasOption("c")) {
-                rectangleParser.contain(line);
+                outputHandler.printContainment(line);
             // -j
             } else if (line.hasOption("j")){
-                rectangleParser.adjacent(line);
+                outputHandler.printAdjacency(line);
             // -h
             } else if (line.hasOption("h")) {
                 formatter.printHelp("java -jar rectangleparser-0.0.1-SNAPSHOT.jar [-p <filename>] [-i <filename> <id> <id>]", options);

@@ -20,28 +20,28 @@
 		<x>10</x>
 		<y>10</y>
 	</rectangle>
-	<rectangle test="testIntersectingRectangles, testAdjacentNoneIntersection">
+	<rectangle test="testIntersectingRectangles, testAdjacentNoneIntersection, doesInteractTest">
 		<id>3</id>
 		<height>5</height>
 		<width>10</width>
 		<x>0</x>
 		<y>0</y>
 	</rectangle>
-	<rectangle test="testIntersectingRectangles, testAdjacentNoneIntersection">
+	<rectangle test="testIntersectingRectangles, testAdjacentNoneIntersection, doesInteractTest">
 		<id>4</id>
 		<height>15</height>
 		<width>20</width>
 		<x>5</x>
 		<y>5</y>
 	</rectangle>
-	<rectangle test="testNonIntersectingRectangles, testAdjacentNone">
+	<rectangle test="testNonIntersectingRectangles, testAdjacentNone, doesNotIntersectTest">
 		<id>5</id>
 		<height>5</height>
 		<width>10</width>
 		<x>0</x>
 		<y>0</y>
 	</rectangle>
-	<rectangle test="testNonIntersectingRectangles, testAdjacentNone">
+	<rectangle test="testNonIntersectingRectangles, testAdjacentNone, doesNotIntersectTest">
 		<id>6</id>
 		<height>10</height>
 		<width>20</width>
