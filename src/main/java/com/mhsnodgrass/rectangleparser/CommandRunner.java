@@ -1,7 +1,13 @@
 package com.mhsnodgrass.rectangleparser;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -34,6 +40,11 @@ public class CommandRunner implements CommandLineRunner {
                 .desc("Parses XML file into Rectangle entities and prints them to the output. You can define the filename after the option, or it will use the default from application.properties.")
                 .argName("PARSE")
                 .build();
+        Option parseVerbose = Option.builder("pv")
+                .longOpt("ParseVerbose")
+                .desc("Same as -p, but it prints out every coordinate of the rectangle")
+                .argName("PARSEVERBOSE")
+                .build();
         Option intersect = Option.builder("i")
                 .longOpt("Intersect")
                 .desc("Parses XML file into Rectangle entities, and takes two ids. It will compare each Rectangle to see if they intersect. Each argument is required.")
@@ -50,6 +61,7 @@ public class CommandRunner implements CommandLineRunner {
                 .argName("HELP")
                 .build();
         options.addOption(parse);
+        options.addOption(parseVerbose);
         options.addOption(intersect);
         options.addOption(contain);
         options.addOption(help);
@@ -67,7 +79,10 @@ public class CommandRunner implements CommandLineRunner {
 
             // -p
             if (line.hasOption("p")) {
-                rectangleParser.parse(line);
+                rectangleParser.parse(line, false);
+            // -pv
+            } else if (line.hasOption("pv")){
+                rectangleParser.parse(line, true);
             // -i
             } else if (line.hasOption("i")){
                 rectangleParser.intersect(line);

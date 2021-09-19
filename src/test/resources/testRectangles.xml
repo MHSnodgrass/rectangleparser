@@ -1,86 +1,170 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rectangles>
-	<rectangle>
+	<rectangle test="testFirstRectangle">
 		<id>1</id>
 		<height>5</height>
 		<width>10</width>
 		<x>0</x>
 		<y>0</y>
 	</rectangle>
-	<rectangle>
+	<rectangle test="testSecondRectangle">
 		<id>2</id>
 		<height>10</height>
 		<width>20</width>
 		<x>10</x>
 		<y>10</y>
 	</rectangle>
-	<rectangle>
+	<rectangle test="Dummy Rectangle (fail)">
 		<height></height>
 		<width>20</width>
 		<x>10</x>
 		<y>10</y>
 	</rectangle>
-	<rectangle>
+	<rectangle test="testIntersectingRectangles, testAdjacentNoneIntersection">
 		<id>3</id>
 		<height>5</height>
 		<width>10</width>
 		<x>0</x>
 		<y>0</y>
 	</rectangle>
-	<rectangle>
+	<rectangle test="testIntersectingRectangles, testAdjacentNoneIntersection">
 		<id>4</id>
 		<height>10</height>
 		<width>20</width>
 		<x>5</x>
 		<y>5</y>
 	</rectangle>
-	<rectangle>
+	<rectangle test="testNonIntersectingRectangles, testAdjacentNone">
 		<id>5</id>
 		<height>5</height>
 		<width>10</width>
 		<x>0</x>
 		<y>0</y>
 	</rectangle>
-	<rectangle>
+	<rectangle test="testNonIntersectingRectangles, testAdjacentNone">
 		<id>6</id>
 		<height>10</height>
 		<width>20</width>
 		<x>20</x>
 		<y>20</y>
 	</rectangle>
-	<rectangle>
+	<rectangle test="testPerfectOverlap, testRectangleNotContainingAnotherRectangle, testAdjacentNonePerfectOverlap">
 		<id>7</id>
 		<height>5</height>
 		<width>10</width>
 		<x>0</x>
 		<y>0</y>
 	</rectangle>
-	<rectangle>
+	<rectangle test="testPerfectOverlap, testRectangleNotContainingAnotherRectangle, testAdjacentNonePerfectOverlap">
 		<id>8</id>
 		<height>5</height>
 		<width>10</width>
 		<x>0</x>
 		<y>0</y>
 	</rectangle>
-	<rectangle>
+	<rectangle test="Dummy Rectangle (fail)">
 		<id>8</id>
 		<height>5</height>
 		<width>10</width>
 		<x>0</x>
 		<y>0</y>
 	</rectangle>
-	<rectangle>
+	<rectangle test="testRectangleContainingAnotherRectangle">
 		<id>9</id>
 		<height>5</height>
 		<width>10</width>
 		<x>0</x>
 		<y>0</y>
 	</rectangle>
-	<rectangle>
+	<rectangle test="testRectangleContainingAnotherRectangle">
 		<id>10</id>
 		<height>3</height>
 		<width>8</width>
 		<x>1</x>
 		<y>-1</y>
+	</rectangle>
+	<rectangle test="testAdjacentProperLeftRight">
+		<id>11</id>
+		<height>3</height>
+		<width>4</width>
+		<x>3</x>
+		<y>6</y>
+	</rectangle>
+	<rectangle test="testAdjacentProperLeftRight">
+		<id>12</id>
+		<height>3</height>
+		<width>4</width>
+		<x>7</x>
+		<y>6</y>
+	</rectangle>
+	<rectangle test="testAdjacentProperBottomTop">
+		<id>13</id>
+		<height>3</height>
+		<width>4</width>
+		<x>3</x>
+		<y>6</y>
+	</rectangle>
+	<rectangle test="testAdjacentProperBottomTop">
+		<id>14</id>
+		<height>3</height>
+		<width>4</width>
+		<x>3</x>
+		<y>9</y>
+	</rectangle>
+	<rectangle test="testAdjacentSubLineLeftRight">
+		<id>15</id>
+		<height>3</height>
+		<width>4</width>
+		<x>3</x>
+		<y>6</y>
+	</rectangle>
+	<rectangle test="testAdjacentSubLineLeftRight">
+		<id>16</id>
+		<height>1</height>
+		<width>4</width>
+		<x>7</x>
+		<y>5</y>
+	</rectangle>
+	<rectangle test="testAdjacentSubLineBottomTop">
+		<id>17</id>
+		<height>3</height>
+		<width>4</width>
+		<x>3</x>
+		<y>6</y>
+	</rectangle>
+	<rectangle test="testAdjacentSubLineBottomTop">
+		<id>18</id>
+		<height>3</height>
+		<width>2</width>
+		<x>4</x>
+		<y>9</y>
+	</rectangle>
+		<rectangle test="testAdjacentPartialLeftRight">
+		<id>19</id>
+		<height>3</height>
+		<width>4</width>
+		<x>3</x>
+		<y>6</y>
+	</rectangle>
+	<rectangle test="testAdjacentPartialLeftRight">
+		<id>20</id>
+		<height>3</height>
+		<width>4</width>
+		<x>7</x>
+		<y>7</y>
+	</rectangle>
+		<rectangle test="testAdjacentPartialBottomTop">
+		<id>21</id>
+		<height>3</height>
+		<width>4</width>
+		<x>3</x>
+		<y>6</y>
+	</rectangle>
+	<rectangle test="testAdjacentPartialBottomTop">
+		<id>22</id>
+		<height>3</height>
+		<width>4</width>
+		<x>2</x>
+		<y>3</y>
 	</rectangle>
 </rectangles>
