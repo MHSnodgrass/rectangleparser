@@ -79,14 +79,24 @@ public class RectangleParser {
                 if (rect1 != null && !rect1.isEmpty() && rect1.get(0) != null && rect1.size() == 1) {
                     if (rect2 != null && !rect2.isEmpty() && rect2.get(0) != null && rect2.size() == 1) {
                         List<Rectangle> tempRectangleList = new ArrayList<>();
-                        Boolean intersect = rect1.get(0).doesIntersect(rect2.get(0));
+                        List<Pair<Integer, Integer>> intersectValues = rect1.get(0).getIntersect(rect2.get(0));
 
                         tempRectangleList.add(rect1.get(0));
                         tempRectangleList.add(rect2.get(0));
 
                         outputRectangleInfo(tempRectangleList, false);
                         log.info("--------------------");
-                        log.info("DOES RECTANGLE #2 INTERSECT RECTANGLE #1: " + ((intersect) ? "Yes" : "No"));
+                        log.info("DOES RECTANGLE #2 INTERSECT RECTANGLE #1: " + ((intersectValues != null) ? "Yes" : "No"));
+                        if (intersectValues != null) {
+                            String values = "";
+                            for (Pair<Integer, Integer> p : intersectValues) {
+                                values += "(" + p.getKey() + ", " + p.getValue() + ")" + " | ";
+                            }
+                            if (!values.isEmpty()) {
+                                values = values.substring(0, values.length() - 2);
+                            }
+                            log.info("INTERSECTING COORDINATES: " + values);
+                        }
                     } else {
                         log.error("ID: " + idTwo + " was not found among the Rectangles in the XML file");
                     }
