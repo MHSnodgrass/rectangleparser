@@ -39,6 +39,11 @@ public class CommandRunner implements CommandLineRunner {
                 .desc("Parses XML file into Rectangle entities, and takes two ids. It will compare each Rectangle to see if they intersect. Each argument is required.")
                 .argName("INTERSECT")
                 .build();
+        Option contain = Option.builder("c")
+                .longOpt("Contain")
+                .desc("Parses XML file into Rectangle entities, and takes two ids. It will check if the first Rectangle contains the second. Each argument is required.")
+                .argName("CONTAIN")
+                .build();
         Option help = Option.builder("h")
                 .longOpt("Help")
                 .desc("Prints this help message")
@@ -46,6 +51,7 @@ public class CommandRunner implements CommandLineRunner {
                 .build();
         options.addOption(parse);
         options.addOption(intersect);
+        options.addOption(contain);
         options.addOption(help);
 
         // Create parser
@@ -65,6 +71,9 @@ public class CommandRunner implements CommandLineRunner {
             // -i
             } else if (line.hasOption("i")){
                 rectangleParser.intersect(line);
+            // -c
+            } else if (line.hasOption("c")) {
+                rectangleParser.contain(line);
             // -h
             } else if (line.hasOption("h")) {
                 formatter.printHelp("java -jar rectangleparser-0.0.1-SNAPSHOT.jar [-p <filename>] [-i <filename> <id> <id>]", options);
