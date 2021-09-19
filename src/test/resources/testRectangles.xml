@@ -69,4 +69,18 @@
 		<x>0</x>
 		<y>0</y>
 	</rectangle>
+	<rectangle>
+		<id>9</id>
+		<height>5</height>
+		<width>10</width>
+		<x>0</x>
+		<y>0</y>
+	</rectangle>
+	<rectangle>
+		<id>10</id>
+		<height>3</height>
+		<width>8</width>
+		<x>1</x>
+		<y>-1</y>
+	</rectangle>
 </rectangles>

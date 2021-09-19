@@ -37,11 +37,11 @@ public class RectangleUtilsTests {
     // Regular Rectangle Tests
     @Test
     public void testRectangleListSize() {
-        // List length should be 8
+        // List length should be 10
         // This tests if items are skipped if they are missing data (Rectangle #3)
         // This also tests if rectangles with Ids already in use are skipped (Rectangle #10)
         assertThat(testRectangles).isNotNull();
-        assertThat(testRectangles.size()).isEqualTo(8);
+        assertThat(testRectangles.size()).isEqualTo(10);
     }
 
     @Test
@@ -92,6 +92,29 @@ public class RectangleUtilsTests {
         assertThat(rect2).isNotNull();
 
         assertThat(rect1.doesIntersect(rect2)).isTrue();
+    }
+
+    // Containment Tests
+    @Test
+    public void testRectangleContainingAnotherRectangle() {
+        Rectangle rect1 = testRectangles.get(8);
+        Rectangle rect2 = testRectangles.get(9);
+
+        assertThat(rect1).isNotNull();
+        assertThat(rect2).isNotNull();
+
+        assertThat(rect1.doesContain(rect2)).isTrue();
+    }
+
+    @Test
+    public void testRectangleNotContainingAnotherRectangle() {
+        Rectangle rect1 = testRectangles.get(6);
+        Rectangle rect2 = testRectangles.get(7);
+
+        assertThat(rect1).isNotNull();
+        assertThat(rect2).isNotNull();
+
+        assertThat(rect1.doesContain(rect2)).isFalse();
     }
 
     // Helper Functions

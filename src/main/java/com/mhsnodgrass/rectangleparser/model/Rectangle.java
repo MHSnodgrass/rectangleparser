@@ -166,11 +166,44 @@ public class Rectangle {
             return true;
         }
 
-        // Return false by default is nothing else matches
+        // Return false by default if nothing else matches
         return false;
     }
 
-    // Helper function to grab the coordinates and return them as a string
+    /**
+     * <p>This method checks if this Rectangle contains the Rectangle sent in</p>
+     * <p>Uses the bottom left and top right coordinate of each rectangle to determine</p>
+     * <p>Checks if the following is true:</p>
+     * <p>X1L, Y1L < X2L, Y2L</p>
+     * <p>X1R, Y1R > X2L, Y2L</p>
+     * <p>X (Coordinate) - 1 (Rectangle Number) - R (Coordination Position, R would be Top Right)</p>
+     * @param rect2 Rectangle sent in to see if this Rectangle contains it
+     * @return Boolean value to represent if there is containment
+     */
+    public Boolean doesContain(Rectangle rect2) {
+        // First Rectangle
+        Integer x1L = this.coordinates.get(2).get(0);
+        Integer y1L = this.coordinates.get(2).get(1);
+        Integer x1R = this.coordinates.get(1).get(0);
+        Integer y1R = this.coordinates.get(1).get(1);
+
+        // Second Rectangle
+        Integer x2L = rect2.getCoordinates().get(2).get(0);
+        Integer y2L = rect2.getCoordinates().get(2).get(1);
+        Integer x2R = rect2.getCoordinates().get(1).get(0);
+        Integer y2R = rect2.getCoordinates().get(1).get(1);
+
+        // Check for containment
+        if (x1L < x2L && y1L < y2L && x1R > x2R && y1R > y2R) {
+            return true;
+        }
+
+        // Return false by default if nothing matches
+        return false;
+    }
+
+    // Helper functions
+    // Grab the coordinates and return them as a string
     private String getCoordinatesFromList(List<List<Integer>> coordinates, int index) {
         String x = coordinates.get(index).get(0).toString();
         String y = coordinates.get(index).get(1).toString();
