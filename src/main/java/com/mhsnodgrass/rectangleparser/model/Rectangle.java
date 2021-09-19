@@ -1,5 +1,6 @@
 package com.mhsnodgrass.rectangleparser.model;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -12,6 +13,7 @@ import java.util.stream.IntStream;
 /** Represents a Rectangle.
  * @author Matthew Snodgrass
  */
+@Slf4j
 public class Rectangle {
     // enums
     public enum Adjacency {
@@ -144,6 +146,37 @@ public class Rectangle {
                  "TR: " + "(" + getCoordinatesFromList(coordinates, 1) + ")" + " / " +
                  "BL: " + "(" + getCoordinatesFromList(coordinates, 2) + ")" + " / " +
                  "BR: " + "(" + getCoordinatesFromList(coordinates, 3) + ")";
+    }
+
+    /**
+     * <p>This method checks for intersection and then returns the intersection coordinates</p>
+     * <p>Checks for intersection first using {@Link doesIntersect}</p>
+     * <p>Does include coordinates for a perfect overlap, and overlapping lines when a positive intersection is also present</p>
+     * @param rect2 Rectangle sent in to see if it intersects with this Rectangle
+     * @return A list of lists of x, y pair values to represent the intersection points
+     */
+    public List<Pair<Integer, Integer>> getIntersect(Rectangle rect2) {
+        List<Pair<Integer, Integer>> results = new ArrayList<>();
+        List<Pair<Integer, Integer>> firstCoordinates = this.getAllCoordinates().stream()
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+
+        List<Pair<Integer, Integer>> secondCoordinates = rect2.getAllCoordinates().stream()
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+
+        // Checks if there is an intersection first
+        if (doesIntersect(rect2)) {
+            // Filter both lists into one by checking if a value is present in both
+            results = firstCoordinates;
+            if (results.retainAll(secondCoordinates)) {
+                return results;
+            } else {
+                results = null;
+            }
+        }
+
+        return results;
     }
 
     /**
