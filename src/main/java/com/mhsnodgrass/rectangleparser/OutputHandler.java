@@ -67,7 +67,7 @@ public class OutputHandler {
             log.info("--------------------");
             log.info("DOES RECTANGLE #2 INTERSECT RECTANGLE #1: " + ((intersectValues != null) ? "Yes" : "No"));
 
-            if (intersectValues != null) {
+            if (intersectValues != null && !intersectValues.isEmpty()) {
                 String values = "";
                 for (Pair<Integer, Integer> p : intersectValues) {
                     values += "(" + p.getKey() + ", " + p.getValue() + ")" + " | ";

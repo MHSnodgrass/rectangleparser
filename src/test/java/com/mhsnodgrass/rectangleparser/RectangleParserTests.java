@@ -63,7 +63,7 @@ public class RectangleParserTests {
     }
 
     @Test
-    public void testIntersectNull() {
+    public void testIntersectEmpty() {
         Rectangle rect1 = testRectangles.get(4);
         Rectangle rect2 = testRectangles.get(5);
 
@@ -75,7 +75,7 @@ public class RectangleParserTests {
         tempList.add(rect2);
 
         List<Pair<Integer, Integer>> result = rectangleParser.intersect(tempList);
-        assertThat(result).isNull();
+        assertThat(result).isEmpty();
     }
 
     @Test

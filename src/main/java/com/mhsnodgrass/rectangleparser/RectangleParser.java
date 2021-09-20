@@ -27,14 +27,10 @@ public class RectangleParser {
      * @return A list of pairs of coordinates that intersect between the two Rectangles
      */
     public List<Pair<Integer, Integer>> intersect(List<Rectangle> rect) {
-       List<Pair<Integer, Integer>> results = null;
+       List<Pair<Integer, Integer>> results = new ArrayList<>();
 
         if (rect != null) {
             results = rect.get(0).getIntersect(rect.get(1));
-        }
-
-        if (results.isEmpty()) {
-            results = null;
         }
 
         return results;
