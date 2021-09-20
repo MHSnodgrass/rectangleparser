@@ -31,6 +31,19 @@ Currently, the program can:
 ###### The Rectangles in the example XML file have attributes to help you test the program. The attribute is `tryWith` and helps you try out the different options in the program
 ###### An example XML file is below if you want to see the file structure needed
 
+## Linux and `mvn javadoc:javadoc`
+You will need to have your JAVA_HOME variable set for `mvn javadoc:javadoc` to work.
+If you are having issues, you can add this to the plugin section in `pom.xml` file:
+```xml
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-javadoc-plugin</artifactId>
+	<configuration>
+		<javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+	</configuration>
+</plugin>
+```			
+
 ## How To Run
 ###### Running with no arguments or using the -h option will give you a help screen
 ###### You can add `v` to any option (ie: `-iv`, `-pv`, etc) for verbose mode. This will give you every coordinate of the rectangle in the output
