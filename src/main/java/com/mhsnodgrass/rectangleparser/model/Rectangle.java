@@ -38,7 +38,7 @@ public class Rectangle {
 
     // Constructor
     /**
-     * <p>Creates a Rectangle with a specified id and height, width, and the x, y coordinates for the top left of the Rectangle</p>
+     * <p>Creates a Rectangle with a specified id ,height, width, and the x, y coordinates for the top left of the Rectangle</p>
      * <p>Also creates the coordinate list (top left, top right, bottom left, bottom right) using the width and height</p>
      * @param id An Integer representing a unique Rectangle
      * @param height An Integer representing the height of the Rectangle
@@ -147,8 +147,8 @@ public class Rectangle {
     }
 
     /**
-     * <p>This method checks for intersection and then returns the intersection coordinates</p>
-     * <p>Checks for intersection first using {@Link doesIntersect}</p>
+     * <p>This method checks for intersection and then returns the intersecting coordinates</p>
+     * <p>Checks for intersection first using doesIntersect</p>
      * <p>Does include coordinates for a perfect overlap, and overlapping lines when a positive intersection is also present</p>
      * @param rect2 Rectangle sent in to see if it intersects with this Rectangle
      * @return A list of lists of x, y pair values to represent the intersection points
@@ -181,8 +181,8 @@ public class Rectangle {
      * <p>This method checks for intersection, including perfect overlap</p>
      * <p>Uses the bottom left and top right coordinate of each rectangle to determine</p>
      * <p>Checks if the following is true:</p>
-     * <p>X2R, Y2R > X1L, Y1L</p>
-     * <p>X1R, Y1R > X2L, Y2L</p>
+     * <p>X2R, Y2R &gt; X1L, Y1L</p>
+     * <p>X1R, Y1R &gt; X2L, Y2L</p>
      * <p>X (Coordinate) - 1 (Rectangle Number) - R (Coordination Position, R would be Top Right)</p>
      * @param rect2 Rectangle sent in to see if it intersects with this Rectangle
      * @return Boolean value to represent if an intersection is present
@@ -218,8 +218,8 @@ public class Rectangle {
      * <p>This method checks if this Rectangle contains the Rectangle sent in</p>
      * <p>Uses the bottom left and top right coordinate of each rectangle to determine</p>
      * <p>Checks if the following is true:</p>
-     * <p>X1L, Y1L < X2L, Y2L</p>
-     * <p>X1R, Y1R > X2L, Y2L</p>
+     * <p>X1L, Y1L &lt; X2L, Y2L</p>
+     * <p>X1R, Y1R &gt; X2L, Y2L</p>
      * <p>X (Coordinate) - 1 (Rectangle Number) - R (Coordination Position, R would be Top Right)</p>
      * @param rect2 Rectangle sent in to see if this Rectangle contains it
      * @return Boolean value to represent if there is containment
