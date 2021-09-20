@@ -27,6 +27,7 @@ public class CommandRunner implements CommandLineRunner {
      * <p>-i parses the XML file and two ids from the user. Will compare each Rectangle with those ids to see if they intersect. Each argument is needed.</p>
      * <p>-c parses the XML file and two ids from the user. Will check if Rectangle #1 contains Rectangle #2. Each argument is needed.</p>
      * <p>-j parses the XML file and two ids from the user. Will check if the Rectangles intersect, and print every intersection coordinate. Each argument is needed.</p>
+     * <p>-a parses the XML file and two ids from the user. Will attempt each method against the two Rectangles. Each argument is needed.</p>
      * <p>'v' can be added to every option (other than -h) to print out every coordinate of the Rectangles that are processed.</p>
      * <p>{@link OutputHandler} is used to handle each option.</p>
      * <p>-h Prints the help output</p>
@@ -70,13 +71,23 @@ public class CommandRunner implements CommandLineRunner {
                 .build();
         Option adjacent = Option.builder("j")
                 .longOpt("Adjacent")
-                .desc("Parses the XML file into Rectangle entties, and takes two ids. It will check if the two Rectangles are adjacent and return what type if they are. Each argument is required.")
+                .desc("Parses the XML file into Rectangle entities, and takes two ids. It will check if the two Rectangles are adjacent and return what type if they are. Each argument is required.")
                 .argName("ADJACENT")
                 .build();
         Option adjacentVerbose = Option.builder("jv")
                 .longOpt("AdjacentVerbose")
                 .desc("Same as -j, but it prints out every coordinate of the rectangles being processed.")
                 .argName("ADJACENTVERBOSE")
+                .build();
+        Option all = Option.builder("a")
+                .longOpt("All")
+                .desc("Parses the XML file into Rectangle entities, and takes two ids. Will run every option against the two Rectangles (-i, -c, and -j). Each argument is required.")
+                .argName("ALL")
+                .build();
+        Option allVerbose = Option.builder("av")
+                .longOpt("AllVerbose")
+                .desc("Same as -a, but it prints out every coordinate of the rectangles being processed.")
+                .argName("ALLVERBOSE")
                 .build();
         Option help = Option.builder("h")
                 .longOpt("Help")
@@ -92,6 +103,8 @@ public class CommandRunner implements CommandLineRunner {
         options.addOption(containVerbose);
         options.addOption(adjacent);
         options.addOption(adjacentVerbose);
+        options.addOption(all);
+        options.addOption(allVerbose);
         options.addOption(help);
 
         // Create parser
@@ -113,28 +126,34 @@ public class CommandRunner implements CommandLineRunner {
                 outputHandler.printRectangleList(line, true);
             // -i
             } else if (line.hasOption("i")) {
-                outputHandler.printIntersectionCoordinates(line, false);
+                outputHandler.printIntersectionCoordinates(line, false, false);
             // -iv
             } else if (line.hasOption("iv")) {
-                outputHandler.printIntersectionCoordinates(line, true);
+                outputHandler.printIntersectionCoordinates(line, true, false);
             // c
             } else if (line.hasOption("c")) {
-                outputHandler.printContainment(line, false);
+                outputHandler.printContainment(line, false, false);
             // -cv
             } else if (line.hasOption("cv")) {
-                outputHandler.printContainment(line, true);
+                outputHandler.printContainment(line, true, false);
             // j
             } else if (line.hasOption("j")) {
-                outputHandler.printAdjacency(line, false);
+                outputHandler.printAdjacency(line, false, false);
             // -jv
             } else if (line.hasOption("jv")) {
-                outputHandler.printAdjacency(line, true);
+                outputHandler.printAdjacency(line, true, false);
+            // -a
+            } else if (line.hasOption("a")) {
+                outputHandler.printAll(line, false);
+            // -av
+            } else if (line.hasOption("av")) {
+                outputHandler.printAll(line, true);
             // -h
             } else if (line.hasOption("h")) {
-                formatter.printHelp("java -jar rectangleparser-0.0.1-SNAPSHOT.jar [-p | -pv <filename>] [[-i, -iv, -c, -cv, -j, -jv] <filename> <id> <id>]", options);
+                formatter.printHelp("java -jar rectangleparser-0.0.1-SNAPSHOT.jar [-p | -pv <filename>] [[-i, -iv, -c, -cv, -j, -jv, -a, -av] <filename> <id> <id>]", options);
             // Default help message
             } else {
-                formatter.printHelp("java -jar rectangleparser-0.0.1-SNAPSHOT.jar [-p | -pv <filename>] [[-i, -iv, -c, -cv, -j, -jv] <filename> <id> <id>]", options);
+                formatter.printHelp("java -jar rectangleparser-0.0.1-SNAPSHOT.jar [-p | -pv <filename>] [[-i, -iv, -c, -cv, -j, -jv, -a, -av] <filename> <id> <id>]", options);
             }
         } catch (ParseException e) {
             log.error("Error parsing arguments/options", e);
