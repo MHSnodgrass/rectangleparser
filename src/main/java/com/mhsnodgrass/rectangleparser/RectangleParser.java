@@ -72,7 +72,7 @@ public class RectangleParser {
 
     /**
      * Takes in a filename, creates an XML file, and generates Rectangle Objects from that file using {@link RectangleUtils}
-     * @param filename
+     * @param filename The filename for the file to be processed
      * @return A List of Rectangles from the XML file
      */
     public List<Rectangle> getRectangleListFromFile(String filename) {
