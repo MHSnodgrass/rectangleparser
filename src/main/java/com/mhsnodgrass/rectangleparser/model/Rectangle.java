@@ -1,6 +1,5 @@
 package com.mhsnodgrass.rectangleparser.model;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -39,7 +38,7 @@ public class Rectangle {
 
     // Constructor
     /**
-     * <p>Creates a Rectangle with a specified height, width, and the x, y coordinates for the top left of the Rectangle</p>
+     * <p>Creates a Rectangle with a specified id and height, width, and the x, y coordinates for the top left of the Rectangle</p>
      * <p>Also creates the coordinate list (top left, top right, bottom left, bottom right) using the width and height</p>
      * @param id An Integer representing a unique Rectangle
      * @param height An Integer representing the height of the Rectangle
