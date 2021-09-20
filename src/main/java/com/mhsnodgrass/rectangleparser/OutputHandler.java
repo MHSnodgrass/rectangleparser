@@ -21,6 +21,7 @@ public class OutputHandler {
 
     private Integer idOne;
     private Integer idTwo;
+    private List<Rectangle> rect;
 
     @Autowired
     private RectangleParser rectangleParser;
@@ -46,28 +47,23 @@ public class OutputHandler {
      * <p>Will send the filename to {@link RectangleParser} to have the file created and retrieve the Rectangle objects</p>
      * <p>Will output each Rectangle using it's toString method, tell the user if they intersect, and print out any intersecting coordinates</p>
      * @param cmd Commandline contains arguments for the file to be read in and an id for the two rectangles that are to be checked
+     * @param verbose Boolean value that decides if all the coordinates for the Rectangle should be printed
+     * @param allCheck Boolean value that decides if an allCheck is happening, limiting duplicate output and processing
      */
-    public void printIntersectionCoordinates(CommandLine cmd, Boolean verbose) {
-        // Check arguments
-        Boolean argFlag = processArgs(cmd, false);
-        List<Rectangle> rect = null;
-
-        if (argFlag) {
-            // Grab the list of files
-            List<Rectangle> rectangleList = rectangleParser.getRectangleListFromFile(filename);
-
-            // Filter for rectangles matching ids given by user
-            rect = null;
-            if (rectangleList != null && !rectangleList.isEmpty()) {
-                rect = rectangleParser.filterRectanglesListByIds(rectangleList, idOne, idTwo);
-            }
+    public void printIntersectionCoordinates(CommandLine cmd, Boolean verbose, Boolean allCheck) {
+        // Check for allCheck to control file processing and output messaging
+        if (!allCheck) {
+            // Set List of the two Rectangles that are being checked
+            checkArgsAndGetRectangleList(cmd);
         }
 
         // Check list before processing
         if (rect != null) {
             // Get the Intersect Values
             List<Pair<Integer, Integer>> intersectValues = rectangleParser.intersect(rect);
-            outputRectangleInfo(rect, verbose);
+            if (!allCheck) {
+                outputRectangleInfo(rect, verbose);
+            }
             log.info("--------------------");
             log.info("DOES RECTANGLE #2 INTERSECT RECTANGLE #1: " + ((intersectValues != null) ? "Yes" : "No"));
 
@@ -90,27 +86,22 @@ public class OutputHandler {
      * <p>Will send the filename to {@link RectangleParser}  to have the file created and retrieve the Rectangle objects</p>
      * <p>Will output each Rectangle using it's toString method and tell the user if the first rectangle contains the second</p>
      * @param cmd Commandline contains arguments for the file to be read in and an id for the two rectangles that are to be checked
+     * @param verbose Boolean value that decides if all the coordinates for the Rectangle should be printed
+     * @param allCheck Boolean value that decides if an allCheck is happening, limiting duplicate output and processing
      */
-    public void printContainment(CommandLine cmd, Boolean verbose) {
-        // Check arguments
-        Boolean argFlag = processArgs(cmd, false);
-        List<Rectangle> rect = null;
-
-        if (argFlag) {
-            // Grab the list of files
-            List<Rectangle> rectangleList = rectangleParser.getRectangleListFromFile(filename);
-
-            // Filter for rectangles matching ids given by user
-            rect = null;
-            if (rectangleList != null && !rectangleList.isEmpty()) {
-                rect = rectangleParser.filterRectanglesListByIds(rectangleList, idOne, idTwo);
-            }
+    public void printContainment(CommandLine cmd, Boolean verbose, Boolean allCheck) {
+        // Check for allCheck to control file processing and output messaging
+        if (!allCheck) {
+            // Set List of the two Rectangles that are being checked
+            checkArgsAndGetRectangleList(cmd);
         }
 
         // Check list before processing
         if (rect != null) {
             Boolean contain = rectangleParser.contain(rect);
-            outputRectangleInfo(rect, verbose);
+            if (!allCheck) {
+                outputRectangleInfo(rect, verbose);
+            }
             log.info("--------------------");
             log.info("DOES RECTANGLE #1 CONTAIN RECTANGLE #2: " + ((contain) ? "Yes" : "No"));
         }
@@ -123,31 +114,39 @@ public class OutputHandler {
      * <p>Will check for a rectangle for each id, and will check if they are adjacent</p>
      * <p>Will output each Rectangle using it's toString method and tell the user if they are adjacent and what type of adjacency is present</p>
      * @param cmd Commandline contains arguments for the file to be read in and an id for the two rectangles that are to be checked
+     * @param verbose Boolean value that decides if all the coordinates for the Rectangle should be printed
+     * @param allCheck Boolean value that decides if an allCheck is happening, limiting duplicate output and processing
      */
-    public void printAdjacency(CommandLine cmd, Boolean verbose) {
-        // Check arguments
-        Boolean argFlag = processArgs(cmd, false);
-        List<Rectangle> rect = null;
-
-        if (argFlag) {
-            // Grab the list of files
-            List<Rectangle> rectangleList = rectangleParser.getRectangleListFromFile(filename);
-
-            // Filter for rectangles matching ids given by user
-            rect = null;
-            if (rectangleList != null && !rectangleList.isEmpty()) {
-                rect = rectangleParser.filterRectanglesListByIds(rectangleList, idOne, idTwo);
-            }
+    public void printAdjacency(CommandLine cmd, Boolean verbose, Boolean allCheck) {
+        // Check for allCheck to control file processing and output messaging
+        if (!allCheck) {
+            // Set List of the two Rectangles that are being checked
+            checkArgsAndGetRectangleList(cmd);
         }
 
         // Check list before processing
         if (rect != null) {
             Rectangle.Adjacency adjacency = rectangleParser.adjacent(rect);
-            outputRectangleInfo(rect, verbose);
+            if (!allCheck) {
+                outputRectangleInfo(rect, verbose);
+            }
             log.info("--------------------");
             log.info("IS RECTANGLE #1 & RECTANGLE #2 ADJACENT:  " + ((adjacency == Rectangle.Adjacency.NONE) ? "No" : "Yes"));
             log.info("ADJACENT TYPE: " + returnStringFromEnum(adjacency));
         }
+    }
+
+    /**
+     * <p>Uses printIntersectionCoordinates to do main CommandLine input parsing</p>
+     * <p>Runs each method to test the two Rectangles sent by the user for Intersection, Containment, and Adjacency</p>
+     * @param cmd Commandline contains arguments for the file to be read in and an id for the two rectangles that are to be checked
+     * @param verbose Boolean value that decides if all the coordinates for the Rectangle should be printed
+     */
+    public void printAll(CommandLine cmd, Boolean verbose) {
+        // Setting the first to false to print general output and process XML file
+        printIntersectionCoordinates(cmd, verbose, false);
+        printContainment(cmd, verbose, true);
+        printAdjacency(cmd, verbose, true);
     }
 
     // Helper Methods
@@ -227,5 +226,24 @@ public class OutputHandler {
         } else {
             return "None";
         }
+    }
+
+    private void checkArgsAndGetRectangleList(CommandLine cmd) {
+        // Check arguments
+        Boolean argFlag = processArgs(cmd, false);
+        List<Rectangle> tempRect = null;
+
+        if (argFlag) {
+            // Grab the list of files
+            List<Rectangle> rectangleList = rectangleParser.getRectangleListFromFile(filename);
+
+            // Filter for rectangles matching ids given by user
+            tempRect = null;
+            if (rectangleList != null && !rectangleList.isEmpty()) {
+                tempRect = rectangleParser.filterRectanglesListByIds(rectangleList, idOne, idTwo);
+            }
+        }
+
+        rect = tempRect;
     }
 }
